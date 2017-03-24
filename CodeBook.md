@@ -56,11 +56,11 @@ it is made up of 4 internal functions:
 
    [`sourceAssignment()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L27):     obtains the data from the download link
    
-   [`readAssignmentData()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L94):   reads the observation data from multiple txt files
+   [`readAssignment()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L94):   reads the observation data from multiple txt files
    
-   [`readLabelData()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L198):  reads the label data from multiple txt files
+   [`readLabels()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L198):  reads the label data from multiple txt files
    
-   [`assignLabelDescriptions()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L294):    performs operations on the data to assign labels and variable names and the merge and extract std() and mean() variables from the full dataset
+   [`renameVariablesLabelsandIndexedValues()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L294):    performs operations on the data to assign labels and variable names and the merge and extract std() and mean() variables from the full dataset
 
 [`tidyExtract()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L392): - This performs average by subject and activty for each variable and creates a duplicate dataframe called [`assignmentData_bySubject`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) and [`assignmentData_byActivity`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
      
