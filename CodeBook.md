@@ -51,15 +51,15 @@ In addition to the source file variables which can be found within the features.
 ### sourceCode
 ['run_analysis.R`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R) is the file which contains the assignment function
 #### Functions
-`loadassignment()`: - This performs the datagrab from the source and processes it to produce the [`assignmentData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) dataframe
+`loadassignment()`: - This performs the datagrab from the source and processes it to produce the [`assignmentData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) dataframe. During this function, the fuller data set with all variables is also saved to the variable  [`assignmentData_FullVarSet`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
 it is made up of 4 internal functions:      
 
     sourceAssignment():     obtains the data from the download link
     readAssignmentData():   reads the observation data from multiple txt files
     readLabelData():  reads the label data from multiple txt files
-    assignLabelDescriptions():    performs operations on the data to assign labels and variable names and the merge
+    assignLabelDescriptions():    performs operations on the data to assign labels and variable names and the merge and extract std() and mean() variables from the full dataset
 
-`tidyExtract()`: - This performs average by subject and activty for each variable and creates a duplicate dataframe called [`tidyData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
+`tidyExtract()`: - This performs average by subject and activty for each variable and creates a duplicate dataframe called [`assignmentData_bySubject`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) and [`assignmentData_byActivity`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
      
 For more information read the comments in the [run_analysis.R script](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R)
 ##### Function Structure
@@ -75,7 +75,7 @@ Each function within the script is structured as follows:
 
 ### Notes
 Some of the varibles in the [original source dataset](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) described in features.txt are not unique which conflicts with the `dplyr` functions.
-To overcome this `make.unique()` is used on the this file after it is loaded and the ~~~ seperator is used follwed by a unique number
+To overcome this `make.unique()` is used on the this file after it is loaded and the ~~~ seperator is used follwed by a unique number.
 To revert back to original names remove all characters including and following ~~~  
 
 License:
