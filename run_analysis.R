@@ -326,8 +326,8 @@ loadAssignment<-function() {
             contentAssignmentData$'./train/X_train.txt'$activity<-as.character(labelSetTbls$activityObsv$label[contentAssignmentData$`./train/y_train.txt`$index])
             
             #1.3 adds the subjectID as a column----
-            contentAssignmentData$'./test/X_test.txt'$subjectID<-as.character(contentAssignmentData$'./test/subject_test.txt'$subjectID)
-            contentAssignmentData$'./train/X_train.txt'$subjectID<-as.character(contentAssignmentData$'./train/subject_train.txt'$subjectID)
+            contentAssignmentData$'./test/X_test.txt'$subjectID<-as.numeric(contentAssignmentData$'./test/subject_test.txt'$subjectID)
+            contentAssignmentData$'./train/X_train.txt'$subjectID<-as.numeric(contentAssignmentData$'./train/subject_train.txt'$subjectID)
             
             #1.4 creates a column to identify the data set group (test or train)----
             contentAssignmentData$'./test/X_test.txt'$group<-"test"
@@ -340,10 +340,18 @@ loadAssignment<-function() {
             }
             
             #1.5 append the train table to the test table----
-            unifiedData<-bind_rows(contentAssignmentData$'./test/X_test.txt',contentAssignmentData$'./train/X_train.txt') # joins two tables vertically
+            unifiedData<-bind_rows(contentAssignmentData$'./test/X_test.txt',
+                                   contentAssignmentData$'./train/X_train.txt')
             
+            assignmentData_FullVarSet<<- unifiedData
             #1.6 reorder the data so that group,subjectID,activity appear before the measured data
-            unifiedData<-bind_cols(unifiedData %>% select(group,subjectID,activity),select(unifiedData,-group,-subjectID,-activity))
+            unifiedData<-bind_cols(unifiedData %>% 
+                                   select(group,subjectID,activity),
+                                   select(unifiedData,-group,-subjectID,-activity))
+            #1.7 Extract only columns containing mean() or std()
+            unifiedData<-unifiedData %>% 
+                  select(subjectID,activity,group,contains("mean()"),contains("std()")) %>%
+                  arrange(subjectID)
       ##9 Returns----
             message("\r\n","Below is a summary of 10 randomly selected variables in the final dataframe:")
             assignmentData<<- unifiedData
@@ -379,14 +387,37 @@ Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012
       print("Labels have been applied and merged into a single dataframe in the variable called 'assignmentData'")
       
 }
-tidyExtract(){
+tidyExtract<-function(){
       #>DESCRIPTION----
       # step 5 of the assignment
       # From the data set in step 4, creates a second, independent tidy data set 
       #>Example----
       #>Arguments----
+      # No arguments required for this function
       #>Returns----
+      # assignmentData_byActivity  dataframe with the average of all variables listed by activity
+      # assignmentData_bySubject   dataframe with the average of all variables listed by subjectID
 #0 Default inputs ----
+      library(dplyr)
+      if (!exists("assignmentData")){
+            warning("The loadAssignment() function is required to run first")
+            return(NULL)
+      }
 #1 Function Body----
+      #1.1 average dataset by subject
+      assignmentData_bySubject<<-
+            assignmentData %>% 
+            group_by(subjectID,group) %>% 
+            summarise_each(funs(mean),
+                           `tBodyAcc-mean()-X`: `fBodyBodyGyroJerkMag-std()`) %>%
+            arrange(subjectID)
+      #1.2 average dataset by activity
+      assignmentData_byActivity<<-
+            assignmentData %>% 
+            group_by(activity,group) %>% 
+            summarise_each(funs(mean),
+                           `tBodyAcc-mean()-X`: `fBodyBodyGyroJerkMag-std()`) %>%
+            arrange(activity)
 #9 Returns----
+      message("assignmentData_byActivity and assignmentData_bySubject created")
 }
