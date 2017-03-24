@@ -6,9 +6,9 @@
 The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.
 
 ### output R Data dataframes
-`assignmentData`: is the variable that is produced when `[loadassignment()](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions)` function is run. It contains a dataframe that is the result of merging the train and test datasets, see Transformations section below for a description of functions that process the source data into this dataframe.
+`assignmentData`: is the variable that is produced when [`loadassignment()`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions) function is run. It contains a dataframe that is the result of merging the train and test datasets, see Transformations section below for a description of functions that process the source data into this dataframe.
 
-`tidyData`: is the variable that is produced when `[tidyExtract()](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions)` function is run. it contains a dataframe that is the result of extracting and summarising the data and summarises the average of each variable for each activity and subject.
+`tidyData`: is the variable that is produced when [`tidyExtract()`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions) function is run. it contains a dataframe that is the result of extracting and summarising the data and summarises the average of each variable for each activity and subject.
 
 ### Reference 
 The source data was downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
@@ -42,16 +42,16 @@ language       R
 version.string R version 3.3.2 (2016-10-31)
 
 ### sourceCode
-`[run_analysis.R](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R)` is the file which contains the assignment function
+['run_analysis.R`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R) is the file which contains the assignment function
 #### Functions
-`loadassignment()`: - This performs the datagrab from the source and processes it to produce the `[assignmentData](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)` dataframe
+`loadassignment()`: - This performs the datagrab from the source and processes it to produce the [`assignmentData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) dataframe
 it is made up of 4 internal functions:      
       `sourceAssignment()`; - obtains the data from the download link
       `readAssignmentData()`; - reads the observation data from multiple txt files
       `readLabelData()`; - reads the label data from multiple txt files
       `assignLabelDescriptions()`; -performs operations on the data to assign labels and variable names and the merge
 
-`tidyExtract()`: - This performs average by subject and activty for each variable and creates a duplicate dataframe called `[tidyData](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)`
+`tidyExtract()`: - This performs average by subject and activty for each variable and creates a duplicate dataframe called [`tidyData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
      
 For more information read the comments in the run_analysis.R script
 ##### Function Structure
