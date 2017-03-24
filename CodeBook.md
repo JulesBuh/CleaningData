@@ -68,7 +68,7 @@ For more information read the #comments in the [run_analysis.R script](https://g
 ##### Function Structure
 Each function within the script is structured as follows:
 
-   # Section
+     Section
    
    [`- Description`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L8)
    
@@ -78,7 +78,7 @@ Each function within the script is structured as follows:
    
    [`1.#   Sub step demarcation`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L27)
     
-    ...
+   ...
     
    [`9     Returns demarcation`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L284)
 
