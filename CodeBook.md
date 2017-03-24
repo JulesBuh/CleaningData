@@ -46,10 +46,11 @@ version.string R version 3.3.2 (2016-10-31)
 #### Functions
 `loadassignment()`: - This performs the datagrab from the source and processes it to produce the [`assignmentData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) dataframe
 it is made up of 4 internal functions:      
-      `sourceAssignment()`; - obtains the data from the download link
-      `readAssignmentData()`; - reads the observation data from multiple txt files
-      `readLabelData()`; - reads the label data from multiple txt files
-      `assignLabelDescriptions()`; -performs operations on the data to assign labels and variable names and the merge
+
+    `sourceAssignment()`:     obtains the data from the download link
+    `readAssignmentData()`:   reads the observation data from multiple txt files
+    `readLabelData()`:  reads the label data from multiple txt files
+    `assignLabelDescriptions()`:    performs operations on the data to assign labels and variable names and the merge
 
 `tidyExtract()`: - This performs average by subject and activty for each variable and creates a duplicate dataframe called [`tidyData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
      
