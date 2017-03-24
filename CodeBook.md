@@ -51,7 +51,7 @@ In addition to the source file variables which can be found within the features.
 ### sourceCode
 ['run_analysis.R`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R) is the file which contains the assignment function
 #### Functions
-`loadassignment()`: - This performs the datagrab from the source and processes it to produce the [`assignmentData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) dataframe. During this function, the fuller data set with all variables is also saved to the variable  [`assignmentData_FullVarSet`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
+[`loadAssignment()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L5): - This performs the datagrab from the source and processes it to produce the [`assignmentData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) dataframe. During this function, the fuller data set with all variables is also saved to the variable  [`assignmentData_FullVarSet`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
 it is made up of 4 internal functions:      
 
    [`sourceAssignment()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L25):     obtains the data from the download link
@@ -62,9 +62,9 @@ it is made up of 4 internal functions:
    
    [`assignLabelDescriptions()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L292):    performs operations on the data to assign labels and variable names and the merge and extract std() and mean() variables from the full dataset
 
-`tidyExtract()`: - This performs average by subject and activty for each variable and creates a duplicate dataframe called [`assignmentData_bySubject`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) and [`assignmentData_byActivity`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
+[`tidyExtract()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L390): - This performs average by subject and activty for each variable and creates a duplicate dataframe called [`assignmentData_bySubject`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) and [`assignmentData_byActivity`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
      
-For more information read the comments in the [run_analysis.R script](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R)
+For more information read the #comments in the [run_analysis.R script](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R)
 ##### Function Structure
 Each function within the script is structured as follows:
 

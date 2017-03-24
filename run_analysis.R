@@ -1,5 +1,7 @@
-## the code is distributed AS-IS and no responsibility implied or explicit can be addressed to the author for its use or misuse
-##run_analysis.R----
+## Author: Jules Buhagiar
+## Purpose: For JHU-assignment submission only
+## The code is distributed AS-IS and no responsibility implied or explicit can be addressed to the author for its use or misuse
+## run_analysis.R----
 
 ##with the average of each variable for each activity and each subject.
 loadAssignment<-function() {
