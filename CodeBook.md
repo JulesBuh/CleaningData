@@ -54,10 +54,10 @@ In addition to the source file variables which can be found within the features.
 `loadassignment()`: - This performs the datagrab from the source and processes it to produce the [`assignmentData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) dataframe. During this function, the fuller data set with all variables is also saved to the variable  [`assignmentData_FullVarSet`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
 it is made up of 4 internal functions:      
 
-    [sourceAssignment()](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L25):     obtains the data from the download link
-    [readAssignmentData()](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L92):   reads the observation data from multiple txt files
-    [readLabelData()](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L196):  reads the label data from multiple txt files
-    [assignLabelDescriptions()](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L292):    performs operations on the data to assign labels and variable names and the merge and extract std() and mean() variables from the full dataset
+   [sourceAssignment()](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L25):     obtains the data from the download link
+   [readAssignmentData()](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L92):   reads the observation data from multiple txt files
+   [readLabelData()](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L196):  reads the label data from multiple txt files
+   [assignLabelDescriptions()](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L292):    performs operations on the data to assign labels and variable names and the merge and extract std() and mean() variables from the full dataset
 
 `tidyExtract()`: - This performs average by subject and activty for each variable and creates a duplicate dataframe called [`assignmentData_bySubject`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) and [`assignmentData_byActivity`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
      
@@ -66,12 +66,12 @@ For more information read the comments in the [run_analysis.R script](https://gi
 Each function within the script is structured as follows:
 
     # Section
-    [- Description](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L6)
-    [0 Dependencies and Input validation](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L20)
-    [1 Function Body](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L23)
-    [1.#   Sub step demarcation](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L25)
+   [- Description](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L6)
+   [0 Dependencies and Input validation](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L20)
+   [1 Function Body](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L23)
+   [1.#   Sub step demarcation](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L25)
     ...
-    [9     Returns demarcation](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L282)
+   [9     Returns demarcation](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L282)
 
 ### Notes
 Some of the varibles in the [original source dataset](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) described in features.txt are not unique which conflicts with the `dplyr` functions.
