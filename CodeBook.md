@@ -69,6 +69,10 @@ Each function within the script is structured as follows:
     ...
     9     Returns demarcation
 
+### Notes
+Some of the varibles in the [original source dataset](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) described in features.txt are not unique which conflicts with the `dplyr` functions.
+To overcome this `make.unique()` is used on the this file after it is loaded and the ~~~ seperator is used follwed by a unique number
+To revert back to original names remove all characters including and following ~~~  
 
 License:
 ========
