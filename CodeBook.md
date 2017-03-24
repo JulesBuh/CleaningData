@@ -13,7 +13,7 @@ The experiments have been carried out with a group of 30 volunteers within an ag
 ### Reference 
 The source data was downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
-See the README.txt in the [link](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) to the zip folder for a fuller explanation of the dataset source files.
+See the README.txt in the [link to the zip folder](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) for a fuller explanation of the dataset source files.
 
 [1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
  
@@ -22,7 +22,9 @@ See the README.txt in the [link](https://d396qusza40orc.cloudfront.net/getdata%2
 In addition to the source file variables which can be found within the features.txt and features_info.txt of the [source data](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip), 3 additional variable are created as a result of the transformation described below:
 
  `group`:   Defines the dataset from which the record came from {values: `test`,`train`}
+ 
  `activity`: Displays the written label for the observation rather than the index which was provided in ./`group`/y_`group`.txt
+ 
  `subjectID`: Displays that the data which was provided in ./[group]/subject_[group].txt
  
 ## Transformations
