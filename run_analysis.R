@@ -1,14 +1,22 @@
 ## the code is distributed AS-IS and no responsibility implied or explicit can be addressed to the author for its use or misuse
 ##run_analysis.R----
-##1.Merges the training and the test sets to create one data set.
-##2.Extracts only the measurements on the mean and standard deviation for each 
-##measurement. 
-##3.Uses descriptive activity names to name the activities in the data set
-##4.Appropriately labels the data set with descriptive variable names. 
-##5.From the data set in step 4, creates a second, independent tidy data set 
+
 ##with the average of each variable for each activity and each subject.
 loadAssignment<-function() {
-
+      #>DESCRIPTION----
+      # Steps 1-4 of the assignment
+      # 1.Merges the training and the test sets to create one data set.
+      # 2.Extracts only the measurements on the mean and standard deviation for each 
+      #   measurement. 
+      # 3.Uses descriptive activity names to name the activities in the data set
+      # 4.Appropriately labels the data set with descriptive variable names. 
+      #>Example----
+      # loadAssignment()
+      #>Arguments----
+      # No Argument are used in this function
+      #>Returns----
+      # assignmentData as a dataframe - this is a combined dataset with labels and
+      # descriptions.
 #0-load prerequisites---
       library(dplyr)
       
@@ -20,20 +28,20 @@ loadAssignment<-function() {
                                  ext="zip",
                                  url="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"){
             
-            ##Description----
-            ##source the raw data for the default dataset
-            #Example
-            #sourceAssignment(dataDir="data")
-            #input arguments
+            #>Description----
+            # source the raw data for the default dataset
+            #>Example----
+            # sourceAssignment(dataDir="data")
+            #>Input arguments----
             # 
-            #Returns
+            #>Returns----
             # The downloaded folder into the specified folder of the project
             ##0 Default inputs ----
             fileNameExt<-paste(dirName,ext,sep=".")
             old.dir<-getwd()  #keeps the root in memory
             dataDirPath<<-paste(old.dir,dataDir,sep="/")
             ##1 Function body ----
-            #0 setting the working directory
+            #0.0 setting the working directory
             if(!dir.exists(dataDirPath)){
                   dir.create(dataDir)
                   setwd(dataDirPath)
@@ -83,22 +91,22 @@ loadAssignment<-function() {
       
 ##1.2readAssignment()--
       readAssignmentData <- function(datadir=dataDirPath,fileType=".txt"){
-            ##Description----
-            ##Reads the source data and returns the data as a list of data frames
+            #>Description----
+            # Reads the source data and returns the data as a list of data frames
             
-            #Example
-            #readAssignmentData()
+            #>Example----
+            # readAssignmentData()
             
-            #input arguments
+            #>input arguments----
             # 'dataDir' is the directory where the data is stored. the default is 
             # dataDirPath as it is assumed that the sourceAssignement function has 
             # already ran where this variable was set
             
-            #Returns
+            #>Returns----
             # A list of dataframes that are named according to what it is ready for 
             # further cleaning
             
-            ##0 inputs ----
+      ##0 inputs ----
             #organise filepath infromation and retain useful paths for later functions
             if (!exists("dataDirPath")){
                   warning("The sourceAssignment() function is required to run first")
@@ -116,9 +124,9 @@ loadAssignment<-function() {
                                   class=c("numeric","factor","factor"),
                                   colHeader=c(NA,"index","subjectID"))
             
-            ##1 Function body ----
+      ##1 Function body ----
             
-            ##1.1 Construct the path names ----
+      ##1.1 Construct the path names ----
             dataPaths<-c(paste("./",metaData[,"set"],
                                metaData[,"path"],
                                metaData[,"set"],fileType,
@@ -133,7 +141,7 @@ loadAssignment<-function() {
             #update the path column
             metaData[,"path"]<- dataPaths
             
-            ##1.2 Read in the data from using the path names----
+      ##1.2 Read in the data from using the path names----
             #instantiate a list of blank dataframes
             observationData<-replicate(nrow(metaData),data.frame(NULL))
             #assign names to the list by the filepath name
@@ -167,7 +175,7 @@ loadAssignment<-function() {
             names(observationData$'./train/subject_train.txt')<-"subjectID"
             
             
-            ##9 Returns----  
+      ##9 Returns----  
             ##9.1 Sets the metadataset--      
             contentMetaData<<-metaData
             message("\r\n","Below is a summary of the data content read:")
@@ -187,20 +195,16 @@ loadAssignment<-function() {
       
 ##1.3readLabels()--
       readLabelData<-function(fileType=".txt"){
-            ##Description----
+            ##>Description----
             # Appropriately labels the data set with descriptive variable names.
             
-            #Example
+            #>Example-----
             # renameLabels("www./1/.csv","www./2/.csv")
-            
-            
-            #input arguments
-            # 'arg3' 
-            
-            #Returns
+            #>input arguments----
+            # 'filetype 
+            #>Returns----
             # A filtered data set
-            
-            ##0 Loads prerequisites----
+      ##0 Loads prerequisites----
             #load the dplyr library
             if (!exists("dataDirPath")){
                   warning("The sourceAssignment() function is required to run first")
@@ -210,14 +214,14 @@ loadAssignment<-function() {
                   warning("The readAssignmentData() function is required to run first")
                   return(NULL)
             }
-            ##1 Function body ----
+      ##1 Function body ----
             #1.1 set the working directories ready to read the labe data----
             old.dir<-getwd()
             setwd(dataDirPath)
             labelPaths<-list.files(".",pattern = fileType)
             labelMatrix <- data.frame(path=as.character(labelPaths))
             
-            #1.2 Does a first pass of the data read to try to match up with observation data----
+      #1.2 Does a first pass of the data read to try to match up with observation data----
             #instantiate a list of blank dataframes
             labelSets<-replicate(nrow(labelMatrix),data.frame(NULL))
             for (file in 1:nrow(labelMatrix)){
@@ -243,7 +247,7 @@ loadAssignment<-function() {
             
             labelSets<-NULL
             
-            #1.3 Reads the label data in properly----
+      #1.3 Reads the label data in properly----
             #creates a temporary list of names to use as names for the dataframes in labelSets
             tempName<-c(NULL)
             
@@ -261,7 +265,6 @@ loadAssignment<-function() {
             
             #assign headers to the labels dataframes, 'index' and 'label' 
             for(labelSet in 1:length(labelSets)){
-                  #assi
                   if(length(labelSets[[labelSet]])==2){
                         
                         names(labelSets[[labelSet]])<-c("index","label")
@@ -276,7 +279,7 @@ loadAssignment<-function() {
                   tbl_df(labelSets[[labelSet]])
             }
             
-            ##9 Returns----
+      ##9 Returns----
             setwd(old.dir)
             labelSetTbls<<-labelSets
             labelMetaData<<-labelMatrix
@@ -288,18 +291,15 @@ loadAssignment<-function() {
       
 ##1.4renameVariablesLabelsandIndexedValues()--
       assignLabelDescriptions<-function(){
-            ##Description----
+            #>Description----
             # Uses descriptive activity names to name the activities in the data set
-            
-            #Example
+            #>Example----
             # renameDescription()
-            
-            #input arguments
-            #  
-            #Returns
+            #>input arguments----
+            #>Returns----
             # A filtered data set
             
-            ##0 Validates inputs----
+      ##0 Validates inputs----
             library(dplyr) #this will hve already been loaded previously, could be 
             #removed from here and placed in a central script instead.
             
@@ -315,7 +315,7 @@ loadAssignment<-function() {
                   warning("The readLabelData() function is required to run first")
                   return(NULL)
             }
-            ##1 Function body ----
+      ##1 Function body ----
             
             #1.1 Applies appropriate descriptions to the dataset----
             names(contentAssignmentData$'./test/X_test.txt')<-labelSetTbls[["obsv"]][["label"]]
@@ -326,8 +326,8 @@ loadAssignment<-function() {
             contentAssignmentData$'./train/X_train.txt'$activity<-as.character(labelSetTbls$activityObsv$label[contentAssignmentData$`./train/y_train.txt`$index])
             
             #1.3 adds the subjectID as a column----
-            contentAssignmentData$'./test/X_test.txt'$subjectID<-as.character(contentAssignmentData$'./test/subject_test.txt'$subjectID)
-            contentAssignmentData$'./train/X_train.txt'$subjectID<-as.character(contentAssignmentData$'./train/subject_train.txt'$subjectID)
+            contentAssignmentData$'./test/X_test.txt'$subjectID<-as.numeric(contentAssignmentData$'./test/subject_test.txt'$subjectID)
+            contentAssignmentData$'./train/X_train.txt'$subjectID<-as.numeric(contentAssignmentData$'./train/subject_train.txt'$subjectID)
             
             #1.4 creates a column to identify the data set group (test or train)----
             contentAssignmentData$'./test/X_test.txt'$group<-"test"
@@ -340,11 +340,19 @@ loadAssignment<-function() {
             }
             
             #1.5 append the train table to the test table----
-            unifiedData<-bind_rows(contentAssignmentData$'./test/X_test.txt',contentAssignmentData$'./train/X_train.txt') # joins two tables vertically
+            unifiedData<-bind_rows(contentAssignmentData$'./test/X_test.txt',
+                                   contentAssignmentData$'./train/X_train.txt')
             
+            assignmentData_FullVarSet<<- unifiedData
             #1.6 reorder the data so that group,subjectID,activity appear before the measured data
-            unifiedData<-bind_cols(unifiedData %>% select(group,subjectID,activity),select(unifiedData,-group,-subjectID,-activity))
-            ##9 Returns----
+            unifiedData<-bind_cols(unifiedData %>% 
+                                   select(group,subjectID,activity),
+                                   select(unifiedData,-group,-subjectID,-activity))
+            #1.7 Extract only columns containing mean() or std()
+            unifiedData<-unifiedData %>% 
+                  select(subjectID,activity,group,contains("mean()"),contains("std()")) %>%
+                  arrange(subjectID)
+      ##9 Returns----
             message("\r\n","Below is a summary of 10 randomly selected variables in the final dataframe:")
             assignmentData<<- unifiedData
             str(assignmentData[as.integer(c(1:3,runif(7,4,length(assignmentData))))])
@@ -378,4 +386,38 @@ Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012
       
       print("Labels have been applied and merged into a single dataframe in the variable called 'assignmentData'")
       
+}
+tidyExtract<-function(){
+      #>DESCRIPTION----
+      # step 5 of the assignment
+      # From the data set in step 4, creates a second, independent tidy data set 
+      #>Example----
+      #>Arguments----
+      # No arguments required for this function
+      #>Returns----
+      # assignmentData_byActivity  dataframe with the average of all variables listed by activity
+      # assignmentData_bySubject   dataframe with the average of all variables listed by subjectID
+#0 Default inputs ----
+      library(dplyr)
+      if (!exists("assignmentData")){
+            warning("The loadAssignment() function is required to run first")
+            return(NULL)
       }
+#1 Function Body----
+      #1.1 average dataset by subject
+      assignmentData_bySubject<<-
+            assignmentData %>% 
+            group_by(subjectID,group) %>% 
+            summarise_each(funs(mean),
+                           `tBodyAcc-mean()-X`: `fBodyBodyGyroJerkMag-std()`) %>%
+            arrange(subjectID)
+      #1.2 average dataset by activity
+      assignmentData_byActivity<<-
+            assignmentData %>% 
+            group_by(activity,group) %>% 
+            summarise_each(funs(mean),
+                           `tBodyAcc-mean()-X`: `fBodyBodyGyroJerkMag-std()`) %>%
+            arrange(activity)
+#9 Returns----
+      message("assignmentData_byActivity and assignmentData_bySubject created")
+}
