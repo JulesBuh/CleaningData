@@ -16,6 +16,8 @@ The experiments have been carried out with a group of 30 volunteers within an ag
 
 `metadata`: an output varaible which displays a log that records the process and timestamps for the output.
 
+![](results.png)
+
 ### Reference 
 The source data was downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
@@ -32,6 +34,8 @@ In addition to the source file variables which can be found within the features.
  `activity`: Displays the written label for the observation rather than the index which was provided in ./`group`/y_`group`.txt
  
  `subjectID`: Displays that the data which was provided in ./[group]/subject_[group].txt
+ 
+ The original labels containing `mean` and `std` are filtered and stored in assessmentData. The `tidyExtract()` function by default operates on the assessmentData dataframe by default. 
  
 ## Transformations
 
@@ -89,6 +93,8 @@ Each function within the script is structured as follows:
    ...
     
    [`9     Returns demarcation`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L328)
+   
+   ![](screenshot.png)
 
 ### Notes
 Some of the varibles in the [original source dataset](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) described in features.txt are not unique which conflicts with the `dplyr` functions.

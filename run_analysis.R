@@ -451,7 +451,7 @@ Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012
       print("Labels have been applied and merged into a single dataframe in the variable called 'assignmentData'")
       
 }
-tidyExtract<-function(){
+tidyExtract<-function(data=assignmentData){
       #>DESCRIPTION----
       # step 5 of the assignment
       # From the data set in step 4, creates a second, independent tidy data set 
