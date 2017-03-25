@@ -21,7 +21,7 @@ loadAssignment<-function() {
       # descriptions.
 #0-load prerequisites---
       library(dplyr)
-      
+      library(stringr)
 #1-Define functions----
       
 ##1.1sourceAssignment()--
@@ -49,7 +49,13 @@ loadAssignment<-function() {
                   setwd(dataDirPath)
             }
             setwd(dataDirPath)
-            
+            dataDirPath<<-paste(dataDirPath,dirName,sep="/")
+            #creates a runtime datastamp
+            runtimeMetadata<<-c(name=dataDirPath,Date=date())
+            if(!exists("metadata")){
+                  #create a new metadata variable
+                  metadata<<-runtimeMetadata
+            }
             #1.0 Actions to perform on a zip file----
             if(ext=="zip"){
                   if(!dir.exists(dirName)){
@@ -67,14 +73,19 @@ loadAssignment<-function() {
                               #check to ensure download and unzip worked succesfully
                               stop("download and unzip of the default set has failed")
                         }
+                        #provides a record for the user when the source data was retrieved
+                        runtimeMetadata<<-list(download=c(name=dataDirPath,Date=date()))
+                        metadata<<-runtimeMetadata
                         #1.0.3B continue if folder is present
                         if(dirPresent){
                               # Deletes the zip file
                               file.remove(fileNameExt)
                               message("unzip complete...")
                         }
+                        
                   }
             }
+                  
             #1.1 Actions to perform on other filtetypes----
             if(ext!="zip"){
                   stop("no other file types have been defined")
@@ -83,7 +94,7 @@ loadAssignment<-function() {
                   #directory
             }
             ##9 Returns----
-            dataDirPath<<-paste(dataDirPath,dirName,sep="/")
+
             setwd(old.dir) # sets the working directory back to the original place
             message(paste("\r\nThe files have been retrieved",
                           "and their location has been set to"))
@@ -110,7 +121,7 @@ loadAssignment<-function() {
             
       ##0 inputs ----
             #organise filepath infromation and retain useful paths for later functions
-            if (!exists("dataDirPath")){
+            if (!(exists("dataDirPath")||exists("metadata"))){
                   warning("The sourceAssignment() function is required to run first")
                   return(NULL)
             }
@@ -195,6 +206,33 @@ loadAssignment<-function() {
             return(contentMetaData)
       }
       
+##1.2.9 Rename Label
+      renameLabel<- function(label){
+            ##>Description----
+            # Removes characters in a systematic way.
+            #>Example
+            # renamelabel(label)
+            #>Arguments
+            # label
+            #>Returns
+            # Transformed Labels as a vector
+      # 0 Prerequisites----
+            library(stringr)
+      # 1 Function Body----
+            label<-label%>%
+                  str_replace_all("\\(","")%>%
+                  str_replace_all("\\)","")%>%
+                  str_replace_all("_","")%>%
+                  str_replace_all("-","x")%>%
+                  str_replace_all(",","")%>%
+                  str_replace("t([BG])","time\\1")%>%
+                  str_replace("f([BG])","frequency\\1")%>%
+                  tolower()%>% # I would disagree with the week 4 course on this
+                  #it is best practice to do lower followed by Proper for each word
+                  make.unique(sep="~~~")
+      # 9 Returns
+            return(label)
+      }
 ##1.3readLabels()--
       readLabelData<-function(fileType=".txt"){
             ##>Description----
@@ -208,7 +246,7 @@ loadAssignment<-function() {
             # A filtered data set
       ##0 Loads prerequisites----
             #load the dplyr library
-            if (!exists("dataDirPath")){
+            if (!(exists("dataDirPath")|exists("metadata"))){
                   warning("The sourceAssignment() function is required to run first")
                   return(NULL)
             }
@@ -221,7 +259,7 @@ loadAssignment<-function() {
             old.dir<-getwd()
             setwd(dataDirPath)
             labelPaths<-list.files(".",pattern = fileType)
-            labelMatrix <- data.frame(path=as.character(labelPaths))
+            labelMatrix <- data.frame(path=as.character(labelPaths),createDate=date())
             
       #1.2 Does a first pass of the data read to try to match up with observation data----
             #instantiate a list of blank dataframes
@@ -244,6 +282,7 @@ loadAssignment<-function() {
                         }
                   }
             }
+            contentMetaData$modifyDate<-date()
             #update the metaData with the new information
             contentMetaData<<-contentMetaData
             
@@ -276,10 +315,15 @@ loadAssignment<-function() {
                         #the altered header names will append a number sequence separated by '~~~' 
                         labelSets[[labelSet]][["label"]]<-make.unique(as.character(labelSets[[labelSet]][["label"]]),sep="~~~")
                         
+                        #rename the labels
+                        labelSets[[labelSet]][["label"]]<-renameLabel(labelSets[[labelSet]][["label"]])
                   }
                   #prepare the dataframes as tables using the dplyr library
+                  
                   tbl_df(labelSets[[labelSet]])
             }
+            
+
             
       ##9 Returns----
             setwd(old.dir)
@@ -305,7 +349,7 @@ loadAssignment<-function() {
             library(dplyr) #this will hve already been loaded previously, could be 
             #removed from here and placed in a central script instead.
             
-            if (!exists("dataDirPath")){
+            if (!(exists("dataDirPath")|exists("metadata"))){
                   warning("The sourceAssignment() function is required to run first")
                   return(NULL)
             }
@@ -324,8 +368,11 @@ loadAssignment<-function() {
             names(contentAssignmentData$'./train/X_train.txt')<-labelSetTbls[["obsv"]][["label"]]
             
             #1.2 Matches activity index to activity labels and assigns them to the full dataset----
-            contentAssignmentData$'./test/X_test.txt'$activity<-as.character(labelSetTbls$activityObsv$label[contentAssignmentData$`./test/y_test.txt`$index])
-            contentAssignmentData$'./train/X_train.txt'$activity<-as.character(labelSetTbls$activityObsv$label[contentAssignmentData$`./train/y_train.txt`$index])
+            
+            
+            
+            contentAssignmentData$'./test/X_test.txt'$activity<-as.factor(labelSetTbls$activityObsv$label[contentAssignmentData$`./test/y_test.txt`$index])
+            contentAssignmentData$'./train/X_train.txt'$activity<-as.factor(labelSetTbls$activityObsv$label[contentAssignmentData$`./train/y_train.txt`$index])
             
             #1.3 adds the subjectID as a column----
             contentAssignmentData$'./test/X_test.txt'$subjectID<-as.numeric(contentAssignmentData$'./test/subject_test.txt'$subjectID)
@@ -352,9 +399,10 @@ loadAssignment<-function() {
                                    select(unifiedData,-group,-subjectID,-activity))
             #1.7 Extract only columns containing mean() or std()
             unifiedData<-unifiedData %>% 
-                  select(subjectID,activity,group,contains("mean()"),contains("std()")) %>%
+                  select(subjectID,activity,group,contains("mean"),contains("std")) %>%
                   arrange(subjectID)
       ##9 Returns----
+            metadata$output<<-c("assignmentData_Fullset","assignmentData")
             message("\r\n","Below is a summary of 10 randomly selected variables in the final dataframe:")
             assignmentData<<- unifiedData
             str(assignmentData[as.integer(c(1:3,runif(7,4,length(assignmentData))))])
@@ -370,12 +418,26 @@ loadAssignment<-function() {
       readAssignmentData();
       readLabelData();
       assignLabelDescriptions();
+     
+      
+      if(exists("metadata")){
+           
+            metadata$downloadmeta<<-list(content=contentMetaData,labels=labelMetaData)
+            metadata$lastRuntime <<- runtimeMetadata
+      
+      }else{
+            metadata<<-list(download=list(runtimeMetadata,
+                            content=contentMetaData,
+                            labels=labelMetaData))
+      }
+      
       
 #9 Returns----
       #cleanup
       rm(list =c("dataDirPath", #originally created in the source data function
                  "contentAssignmentData","contentMetaData", #originally created in the read data function
-                 "labelMetaData","labelSetTbls" #originally created in the read labels function
+                 "labelSetTbls","labelMetaData", #originally created in the read labels function
+                 "runtimeMetadata" #removes the in-function metadata that has been stored to the global metadata variable
       ),envir=as.environment(parent.frame()))
 
 
@@ -401,7 +463,7 @@ tidyExtract<-function(){
       # assignmentData_bySubject   dataframe with the average of all variables listed by subjectID
 #0 Default inputs ----
       library(dplyr)
-      if (!exists("assignmentData")){
+      if (!exists("assignmentData")|!exists("metadata")){
             warning("The loadAssignment() function is required to run first")
             return(NULL)
       }
@@ -409,17 +471,18 @@ tidyExtract<-function(){
       #1.1 average dataset by subject
       assignmentData_bySubject<<-
             assignmentData %>% 
-            group_by(subjectID,group) %>% 
+            group_by(subjectID) %>% 
             summarise_each(funs(mean),
-                           `tBodyAcc-mean()-X`: `fBodyBodyGyroJerkMag-std()`) %>%
+                           -group,-subjectID,-activity) %>%
             arrange(subjectID)
       #1.2 average dataset by activity
       assignmentData_byActivity<<-
             assignmentData %>% 
-            group_by(activity,group) %>% 
+            group_by(activity) %>% 
             summarise_each(funs(mean),
-                           `tBodyAcc-mean()-X`: `fBodyBodyGyroJerkMag-std()`) %>%
+                           -group,-subjectID,-activity) %>%
             arrange(activity)
 #9 Returns----
+      metadata$extracted<<-c(name=c("assignmentData_byActivity","assignmentData_bySubject"),processDate=date())
       message("assignmentData_byActivity and assignmentData_bySubject created")
 }
