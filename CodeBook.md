@@ -20,7 +20,7 @@ Each variable that is a list contains multiple elements, use the `$` to navigate
 [`transformData.txt`](https://github.com/JulesBuh/CleaningData/blob/master/transformData.txt): an output file which displays a log that records the process and timestamps for the output.
 [`tidyData.txt`](https://github.com/JulesBuh/CleaningData/blob/master/tidyData.txt): an output file which displays a log that records the process and timestamps for the output.
 
-![](results.png)
+![](codeBookImages/results.png)
 
 ## Study design
 ### Reference 
@@ -69,7 +69,7 @@ In addition to the source file variables which can be found within the features.
 #### Functions
 [`loadAssignment()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L7): - This performs the datagrab from the source and processes it to produce the [`assignmentData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) dataframe. During this function, the fuller data set with all variables is also saved to the variable  [`assignmentData_FullVarSet`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
 it is made up of a number internal functions:      
-![](functionStructureScreenshot.png)
+![](codeBookImages/functionStructureScreenshot.png)
 
    [`source_Assignment()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L210):     obtains the data from the download link
    
@@ -89,7 +89,7 @@ it is made up of a number internal functions:
    
 [`extract_Data()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L612): - This performs average by subject and activty for each variable and creates a duplicate dataframe called `tidyData` 
 
-![](functionStructure.png)
+![](codeBookImages/functionStructure.png)
      
 For more information read the #comments in the [run_analysis.R script](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R)
 ##### Function Structure
@@ -109,7 +109,7 @@ Each function within the script is structured as follows:
     
    [`9     Returns demarcation`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L286)
    
-   ![](screenshot.png)
+   ![](codeBookImages/screenshot.png)
 
 ### Notes
 Some of the varibles in the [original source dataset](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) described in features.txt are not unique which conflicts with the `dplyr` functions.
