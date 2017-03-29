@@ -1,4 +1,10 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # CodeBook
+
 
 ## Data
 
@@ -6,18 +12,22 @@
 The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.
 
 ### output R Data dataframes
-`assignmentData`: is the R variable that is produced when [`loadAssignment()`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions) function is run. It contains a dataframe that is the result of merging the train and test datasets, see Transformations section below for a description of functions that process the source data into this dataframe.
+`sourceData`: is the R variable that is produced when [`run_analysis)`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions) function is run. It contains structured lists of the source data, see Transformations section below for a description of functions that process the source data into this dataframe.
 
-`assignmentData_FullVarSet`: is the R variable that is produced before the means and std extract is applied
+`transformData`: is the R variable that is produced as an intermediary dataframe which contains the dataframe after merging.
 
-`assignmentData_bySubject`: is the R variable that is produced when [`tidyExtract()`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions) function is run. it contains a dataframe that is the result of extracting and summarising the data and summarises the average of each variable for each subject.
+`tidyData`: is the R variable that is produced when [`tidyExtract()`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions) function is run. it contains a dataframe that is the result of extracting and summarising the data and summarises the average of each variable for each subject.
 
-`assignmentData_byActivity`: is the R variable that is produced when [`tidyExtract()`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions) function is run. it contains a dataframe that is the result of extracting and summarising the data and summarises the average of each variable for each activity.
+Each variable that is a list contains multiple elements, use the `$` to navigate in the R console command line
 
-`metadata`: an output varaible which displays a log that records the process and timestamps for the output.
+### output files
+[`metadataLog.txt`](https://github.com/JulesBuh/CleaningData/blob/master/metadataLog.txt): an output file which displays a log that records the process and timestamps for the output.
+[`transformData.txt`](https://github.com/JulesBuh/CleaningData/blob/master/transformData.txt): an output file which displays a log that records the process and timestamps for the output.
+[`tidyData.txt`](https://github.com/JulesBuh/CleaningData/blob/master/tidyData.txt): an output file which displays a log that records the process and timestamps for the output.
 
 ![](results.png)
 
+## Study design
 ### Reference 
 The source data was downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
@@ -57,24 +67,34 @@ In addition to the source file variables which can be found within the features.
 ### R package dependencies
     `stringr::    1.1.0`
     `dplyr::      0.5.0`
+    `library::    1.6.0`
 
 ### sourceCode
 ['run_analysis.R`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R) is the file which contains the assignment function
 #### Functions
 [`loadAssignment()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L7): - This performs the datagrab from the source and processes it to produce the [`assignmentData`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) dataframe. During this function, the fuller data set with all variables is also saved to the variable  [`assignmentData_FullVarSet`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
-it is made up of 4 internal functions:      
+it is made up of a number internal functions:      
+![](functionStructureScreenshot.png)
 
-   [`sourceAssignment()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L28):     obtains the data from the download link
+   [`source_Assignment()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L210):     obtains the data from the download link
    
-   [`readAssignment()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L106):   reads the observation data from multiple txt files
+   [`read_Assignment_Data()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L296):   reads the observation data from multiple txt files
   
-   [`renameLabel()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L210):  defines a function to rename the labels which is used in `readlabels()`
+   [`rename_Label()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L175):  defines a function to rename the labels which is used in `readlabels()`
    
-   [`readLabels()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L237):  reads the label data from multiple txt files
+   [`read_Label_Data()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L415):  reads the label data from multiple txt files
    
-   [`renameVariablesLabelsandIndexedValues()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L339):    performs operations on the data to assign labels and variable names and the merge and extract std() and mean() variables from the full dataset
+   [`map_descriptions()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L518):  maps the descriptions to the column headers and the activities
+   
+   [`append_Columns()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L559):    performs operations adds the subject and activity columns to the observation data for the test and train data set
+   
+   [`merge_Datasets()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L591): joins the test and train datasets together into one full dataframe
+   
+   [`filter_Variables()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L603): filters the variables down to only observataions that contain mean or std in their description
+   
+[`extract_Data()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L614): - This performs average by subject and activty for each variable and creates a duplicate dataframe called `tidyData` 
 
-[`tidyExtract()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L454): - This performs average by subject and activty for each variable and creates a duplicate dataframe called [`assignmentData_bySubject`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes) and [`assignmentData_byActivity`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#output-r-data-dataframes)
+![](functionStructure.png)
      
 For more information read the #comments in the [run_analysis.R script](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R)
 ##### Function Structure
@@ -84,24 +104,25 @@ Each function within the script is structured as follows:
    
    [`- Description`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L8)
    
-   [`0 Dependencies and Input validation`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L22)
+   [`0 Dependencies and Input validation`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L29)
    
-   [`1 Function Body`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L25)
+   [`1 Function Body`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L248)
    
-   [`1.#   Sub step demarcation`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L28)
+   [`1.#   Sub step demarcation`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L226)
     
    ...
     
-   [`9     Returns demarcation`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L328)
+   [`9     Returns demarcation`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L286)
    
    ![](screenshot.png)
 
 ### Notes
 Some of the varibles in the [original source dataset](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) described in features.txt are not unique which conflicts with the `dplyr` functions.
-To overcome this `make.unique()` is used on the this file after it is loaded and the ~~~ seperator is used follwed by a unique number.
-To revert back to original names remove all characters including and following ~~~
-the following characters are replaced `(` `)` `_` `-` `,` `f` `t` and all alpha-character are transfromed to `lowercase`
-For more detail of the transformation of the label names see [`renamelabel()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L210) function.
+To overcome this `make.unique()` is used on the this file after it is loaded and the ~~~ seperator is used follwed by a unique number and all alpha-character are transfromed to `lowercase`.
+Some characters are replaced with words are concatenated by `.`
+See the `rename_Label()` function for more detail or view the [`metadataLog.txt`](https://github.com/JulesBuh/CleaningData/blob/master/metadataLog.txt) for a sample.
+
+For more detail of the transformation of the label names see [`rename_label()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L210) function.
 
 License:
 ========

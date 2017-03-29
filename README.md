@@ -9,8 +9,12 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 ## Scripts:
 [run_analysis.R](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R)
+### Requires:
+      library(dplyr)
+      library(stringr)
+      library(lubridate)
 
-To use, type `source("run_analysis.R")`
+To use, type `source("run_analysis.R"); run_analysis()`
 loads functions [`loadAssignment()`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions) and [`tidyExtract()`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions)
 
 ## Descriptions:
