@@ -288,9 +288,9 @@ Each function within the script is structured as follows:
    ![](codeBookImages/screenshot.png)
 
 ### Notes
-Some of the varibles in the [original source dataset](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) described in features.txt are not unique which conflicts with the `dplyr` functions.
-To overcome this `make.unique()` is used on the this file after it is loaded and the ~~~ seperator is used follwed by a unique number and all alpha-character are transfromed to `lowercase`.
-Some characters are replaced with words are concatenated by `.`
+Some of the variables in the [original source dataset](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) described in features.txt are not unique which conflicts with the `dplyr` functions.
+To overcome this `make.unique()` is used on the this file after it is loaded and the ~~~ seperator is used followed by a unique number and all alpha-character are transformed to `lowercase`.
+Some characters are replaced with words which are concatenated by `.`
 See the `rename_Label()` function for more detail or view the [`metadataLog.txt`](https://github.com/JulesBuh/CleaningData/blob/master/metadataLog.txt) for a sample.
 
 For more detail of the transformation of the label names see [`rename_label()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L173) function.
