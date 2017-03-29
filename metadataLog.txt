@@ -29,3 +29,32 @@ Original
 Transformed
 "aabbccddeeffrequency.gghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz time.b     -  "
 "aabbccddeeffrequency.gghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz time.g     -  "
+
+Source metadata
+
+Source data Location
+"dirDataPath" "C:/Users/Jules Mason/Documents/Education/Coursera/Data Specialization/3.4;Assignment/CleaningData/UCI HAR Dataset" 2017-03-29 17:08:01
+
+Download Information
+
+Source Observation Content
+"test" "obsv" "./test/X_test.txt" "numeric" NA 561 2947 "features.txt"
+"test" "subjectIDobsv" "./test/subject_test.txt" "integer" "subjectID" 9 2947 NA
+"test" "activityObsv" "./test/y_test.txt" "integer" "index" 6 2947 "activity_labels.txt"
+"train" "obsv" "./train/X_train.txt" "numeric" NA 561 7352 "features.txt"
+"train" "subjectIDobsv" "./train/subject_train.txt" "integer" "subjectID" 21 7352 NA
+"train" "activityObsv" "./train/y_train.txt" "integer" "index" 6 7352 "activity_labels.txt"
+
+Source Labels Lookup Content
+"activity_labels.txt" 2017-03-29 17:08:07 6 "activityObsv"
+"features.txt" 2017-03-29 17:08:07 561 "obsv"
+"features_info.txt" 2017-03-29 17:08:07 59 NA
+"README.txt" 2017-03-29 17:08:07 70 NA
+
+ Label Transformation Sample
+Original
+"AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz tB   ( ) - _ ,"
+"AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz tG   ( ) - _ ,"
+Transformed
+"aabbccddeeffrequency.gghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz time.b     -  "
+"aabbccddeeffrequency.gghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz time.g     -  "

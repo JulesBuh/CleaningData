@@ -677,7 +677,5 @@ Use of this dataset in publications must be acknowledged by referencing the foll
 print("The results for the assignment have been summarised into a single dataframe in the variable called 'tidyData' and saved to the file 'tidyData.txt'. 
       Meta data and merged data have been saved to 'metadataLog.txt' and 'transformData.txt'.")
 print("The principles of tidy data are:")
-print("1. Each measured variable is in one column.")
-print("2. Each observation of that variable is in one row.")
-print("3. One table for each kind of variable. - In this assignmment each subject could be split to its own table")
+print(c("Each measured variable is in one column.","Each observation of that variable is in one row."," One table for each kind of variable. - In this assignmment each subject could be split to its own table"))
 }
