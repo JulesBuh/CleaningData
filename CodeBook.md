@@ -1,8 +1,3 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
 # CodeBook
 
 
@@ -16,7 +11,7 @@ The experiments have been carried out with a group of 30 volunteers within an ag
 
 `transformData`: is the R variable that is produced as an intermediary dataframe which contains the dataframe after merging.
 
-`tidyData`: is the R variable that is produced when [`tidyExtract()`](https://github.com/JulesBuh/CleaningData/blob/master/CodeBook.md#functions) function is run. it contains a dataframe that is the result of extracting and summarising the data and summarises the average of each variable for each subject.
+`tidyData`: is the R variable that is produced after the full dataset has been merged. it contains a dataframe that is the result of extracting and summarising the data and summarises the average of each variable for each subject.
 
 Each variable that is a list contains multiple elements, use the `$` to navigate in the R console command line
 
@@ -80,19 +75,19 @@ it is made up of a number internal functions:
    
    [`read_Assignment_Data()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L296):   reads the observation data from multiple txt files
   
-   [`rename_Label()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L175):  defines a function to rename the labels which is used in `readlabels()`
+   [`rename_Label()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L173):  defines a function to rename the labels which is used in `readlabels()`
    
-   [`read_Label_Data()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L415):  reads the label data from multiple txt files
+   [`read_Label_Data()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L413):  reads the label data from multiple txt files
    
-   [`map_descriptions()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L518):  maps the descriptions to the column headers and the activities
+   [`map_descriptions()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L516):  maps the descriptions to the column headers and the activities
    
-   [`append_Columns()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L559):    performs operations adds the subject and activity columns to the observation data for the test and train data set
+   [`append_Columns()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L557):    performs operations adds the subject and activity columns to the observation data for the test and train data set
    
-   [`merge_Datasets()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L591): joins the test and train datasets together into one full dataframe
+   [`merge_Datasets()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L589): joins the test and train datasets together into one full dataframe
    
-   [`filter_Variables()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L603): filters the variables down to only observataions that contain mean or std in their description
+   [`filter_Variables()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L601): filters the variables down to only observataions that contain mean or std in their description
    
-[`extract_Data()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L614): - This performs average by subject and activty for each variable and creates a duplicate dataframe called `tidyData` 
+[`extract_Data()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L612): - This performs average by subject and activty for each variable and creates a duplicate dataframe called `tidyData` 
 
 ![](functionStructure.png)
      
@@ -122,7 +117,7 @@ To overcome this `make.unique()` is used on the this file after it is loaded and
 Some characters are replaced with words are concatenated by `.`
 See the `rename_Label()` function for more detail or view the [`metadataLog.txt`](https://github.com/JulesBuh/CleaningData/blob/master/metadataLog.txt) for a sample.
 
-For more detail of the transformation of the label names see [`rename_label()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L210) function.
+For more detail of the transformation of the label names see [`rename_label()`](https://github.com/JulesBuh/CleaningData/blob/master/run_analysis.R#L173) function.
 
 License:
 ========
